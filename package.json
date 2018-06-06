@@ -1,6 +1,6 @@
 {
   "name": "rm-rf-node-modules",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Rm -f all folders with package.json && node_modules/ folder",
   "main": "index.js",
   "scripts": {
@@ -8,13 +8,13 @@
   },
   "bin": "./bin/rm-node-modules.js",
   "author": {
-    "name" : "Matteo Maronati",
-    "email" : "me@mattinthe.net",
-    "url" : "https://mattinthe.net/"
+    "name": "Matteo Maronati",
+    "email": "me@mattinthe.net",
+    "url": "https://mattinthe.net/"
   },
-  "repository" : {
-    "type" : "git" ,
-    "url" : "https://github.com/MattAndDev/rm-rf-node-modules.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MattAndDev/rm-rf-node-modules.git"
   },
   "license": "WTFPL"
 }
