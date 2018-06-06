@@ -5,7 +5,7 @@ class RmNodeModules {
 
   constructor (args) {
     let opt = {
-      s: true,
+      s: false,
       ss: false
     }
     this.args = Object.assign(opt, utils.mapArgs(args))
