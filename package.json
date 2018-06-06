@@ -1,0 +1,12 @@
+{
+  "name": "rm-node-modules",
+  "version": "0.0.1",
+  "description": "Rm -f all folders with package.json && node_modules/ folder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": "./bin/rm-node-modules.js",
+  "author": "Matteo Maronati",
+  "license": "ISC"
+}
