@@ -1,10 +1,10 @@
 {
-  "name": "rm-rf-node-modules",
+  "name": "rmrfnm",
   "version": "0.0.2",
-  "description": "Rm -f all folders with package.json && node_modules/ folder",
+  "description": "Rm -rf all of your node_modules, with care",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mkdir testa && cd testa && npm i lodash"
   },
   "bin": "./bin/rm-node-modules.js",
   "author": {
@@ -16,5 +16,8 @@
     "type": "git",
     "url": "https://github.com/MattAndDev/rm-rf-node-modules.git"
   },
-  "license": "WTFPL"
+  "license": "WTFPL",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
 }
