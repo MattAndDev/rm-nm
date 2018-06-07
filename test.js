@@ -38,9 +38,9 @@ const test = async () => {
   await fs.mkdirSync(testDir)
   await generate()
   await execSync(`node ./bin/rm-node-modules ${testDir}`)
-  let result = await execSync(`find ${testDir} -name node_modules\*`).toString()
+  let result = await execSync(`find ${testDir} -name node_modules`).toString()
   if (result.length !== 0) {
-    throw new Error(`Expected no result from 'find ${testDir} -name node_modules\*' got\n${result}`)
+    throw new Error(`Expected no result from 'find ${testDir} -name node_modules*' got\n${result}`)
   }
   await clean()
 }

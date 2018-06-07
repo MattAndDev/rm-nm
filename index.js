@@ -3,7 +3,6 @@ const path = require('path')
 const fs = require('fs')
 
 class RmNodeModules {
-
   constructor (args) {
     let opt = {
       s: false,
@@ -36,17 +35,16 @@ class RmNodeModules {
       return
     }
     let dirs = await utils.deleteFoldersRecursive(dirsToRemove)
-    let totalSizeInMb = (dirs.reduce((a, b) => +a +b.size, 0) / 1000)
+    let totalSizeInMb = (dirs.reduce((a, b) => +a + b.size, 0) / 1000)
     console.log(`Deleted ${dirs.length} node_modules folders, freed ${totalSizeInMb}KB of memory`)
-    return
   }
 
   async applyArgs (dirs) {
     if (this.args.ss) {
-      return dirs.filter(dir => dir.packageJson && dir.packageLockJson )
+      return dirs.filter(dir => dir.packageJson && dir.packageLockJson)
     }
     if (this.args.s) {
-      return dirs.filter(dir => dir.packageJson )
+      return dirs.filter(dir => dir.packageJson)
     }
     return dirs
   }
