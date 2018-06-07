@@ -60,26 +60,24 @@ module.exports = {
    return results
  },
 
- async deleteFolderRecursive (path, size = 0) {
-   let contents = await fs.readdirSync(path)
-   for (var i = 0; i < contents.length; i++) {
-     let currentPath =`${path}/${contents[i]}`
-     if(fs.lstatSync(currentPath).isDirectory()) {
-       await this.deleteFolderRecursive(currentPath, size);
-     }
-     else {
-       size = size + await fs.statSync(currentPath).size
-       fs.unlinkSync(currentPath);
-      }
-    }
-  fs.rmdirSync(path)
-  return size
-},
 
- async deleteDirs (dirs) {
+ async deleteFoldersRecursive (dirs) {
    for (var i = 0; i < dirs.length; i++) {
-     let deletedSize = await this.deleteFolderRecursive(dirs[i].path)
-     dirs[i].size = deletedSize
+     let path = dirs[i].path
+     let size = 0
+     let contents = await fs.readdirSync(path)
+     for (var y = 0; y < contents.length; y++) {
+       let currentPath =`${path}/${contents[y]}`
+       if(fs.lstatSync(currentPath).isDirectory()) {
+         await this.deleteFoldersRecursive([{path: currentPath}], size);
+       }
+       else {
+         size = size + await fs.statSync(currentPath).size
+         fs.unlinkSync(currentPath);
+        }
+      }
+      fs.rmdirSync(path)
+      dirs[i].size = size
    }
    return dirs
  }
