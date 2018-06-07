@@ -5,4 +5,4 @@ jobs:
        - image: circleci/node:8.11.2
      steps:
        - checkout
-       - run: node index.js
+       - run: npm run test

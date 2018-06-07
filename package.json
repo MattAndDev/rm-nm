@@ -4,7 +4,7 @@
   "description": "Rm -rf all of your node_modules, with care",
   "main": "index.js",
   "scripts": {
-    "test": "mkdir testa && cd testa && npm i lodash"
+    "test": "node test.js"
   },
   "bin": "./bin/rm-node-modules.js",
   "author": {
