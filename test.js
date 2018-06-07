@@ -18,22 +18,22 @@ const testDirs = [
   }
 ]
 
+const testDir = './.test'
 // generate all test dirs
 const generate = async () => {
-  testDirs.forEach(async (testDir) => {
-    await fs.mkdirSync(`./test/${testDir.name}`)
-    let execPath = path.resolve(`./test/${testDir.name}/`)
-    await execSync(testDir.exec, { cwd: execPath, stdio: 'ignore' })
+  testDirs.forEach(async (dir) => {
+    await fs.mkdirSync(`${testDir}/${dir.name}`)
+    let execPath = path.resolve(`${testDir}/${dir.name}/`)
+    await execSync(dir.exec, { cwd: execPath, stdio: 'ignore' })
   })
 }
 // generate all test dirs
 const clean = async () => {
-  await utils.deleteFoldersRecursive([{ path: './test' }])
+  await utils.deleteFoldersRecursive([{ path: testDir }])
 }
 
 // test
 const test = async () => {
-  let testDir = './test'
   // create
   await fs.mkdirSync(testDir)
   await generate()
@@ -43,11 +43,11 @@ const test = async () => {
     throw new Error(`Expected no result from 'find ${testDir} -name node_modules\*' got\n${result}`)
   }
   await clean()
-
 }
 
-
+// wrap
 const testWrap = () => {
   test().catch((e) => { console.error(e) })
 }
+// ship
 module.exports = testWrap()
