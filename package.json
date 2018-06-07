@@ -1,6 +1,6 @@
 {
-  "name": "rmrfnm",
-  "version": "0.0.2",
+  "name": "rm-nm",
+  "version": "0.0.1",
   "description": "Rm -rf all of your node_modules, with care",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MattAndDev/rm-rf-node-modules.git"
+    "url": "https://github.com/MattAndDev/rm-nm.git"
   },
   "license": "WTFPL",
   "dependencies": {

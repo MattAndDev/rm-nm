@@ -1,6 +1,6 @@
-# rm-node-modules
+# rm-nm
 
-> WIP should become yet another npm module
+> Remove node_modules
 
 ## why?
 
