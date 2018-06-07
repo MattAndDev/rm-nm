@@ -14,16 +14,20 @@ class RmNodeModules {
   }
 
   run () {
+    // this ensures a catch for any bubbling error
     this.wrap().catch((e) => { console.error(e) })
   }
 
   async wrap () {
+    // if passed folder does not exists
     if (!await fs.existsSync(this.args.cwd)) {
       throw new Error(`Cannot find entry point directory:\n${this.args.cwd}`)
     }
+    // get all first level node dirs
     let nodeDirs = await utils.getNodeDirs(this.args.cwd)
+    // if none inform and return
     if (!nodeDirs.length) {
-      console.log('No directories found')
+      console.log(`No 'node_modules' directories found`)
       return
     }
     let dirsToRemove = await this.applyArgs(nodeDirs)
