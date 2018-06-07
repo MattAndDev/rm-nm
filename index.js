@@ -1,5 +1,6 @@
 const utils = require('./utils')
 const path = require('path')
+const fs = require('fs')
 
 class RmNodeModules {
 
@@ -12,7 +13,14 @@ class RmNodeModules {
     this.args.cwd = (!this.args.target) ? process.cwd() : path.resolve(this.args.target)
   }
 
-  async run () {
+  run () {
+    this.wrap().catch((e) => { console.error(e) })
+  }
+
+  async wrap () {
+    if (!await fs.existsSync(this.args.cwd)) {
+      throw new Error(`Cannot find entry point directory:\n${this.args.cwd}`)
+    }
     let nodeDirs = await utils.getNodeDirs(this.args.cwd)
     if (!nodeDirs.length) {
       console.log('No directories found')
@@ -23,15 +31,15 @@ class RmNodeModules {
       console.log(`No directories found with current options`)
       return
     }
-    let dirs = await utils.deleteDirs(dirsToRemove)
-    let totalSizeInMb = (dirs.reduce((a, b) => +a +b.size, 0) / 1000000)
-    console.log(`Deleted ${dirs.length} node_modules folders, freed ${totalSize}MB of memory`)
+    let dirs = await utils.deleteFoldersRecursive(dirsToRemove)
+    let totalSizeInMb = (dirs.reduce((a, b) => +a +b.size, 0) / 1000)
+    console.log(`Deleted ${dirs.length} node_modules folders, freed ${totalSizeInMb}KB of memory`)
     return
   }
 
   async applyArgs (dirs) {
     if (this.args.ss) {
-      return dirs.filter(dir => dir.packageJson && !dir.packageLockJson )
+      return dirs.filter(dir => dir.packageJson && dir.packageLockJson )
     }
     if (this.args.s) {
       return dirs.filter(dir => dir.packageJson )
