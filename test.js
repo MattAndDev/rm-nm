@@ -21,23 +21,23 @@ const testDirs = [
 const testDir = './.test'
 // generate all test dirs
 const generate = async () => {
+  await fs.mkdirSync(testDir)
   testDirs.forEach(async (dir) => {
     await fs.mkdirSync(`${testDir}/${dir.name}`)
     let execPath = path.resolve(`${testDir}/${dir.name}/`)
-    await execSync(dir.exec, { cwd: execPath, stdio: 'ignore' })
+    await execSync(dir.exec, { cwd: execPath })
   })
 }
-// generate all test dirs
+// remeove tests
 const clean = async () => {
-  await utils.deleteFoldersRecursive([{ path: testDir }])
+  await utils.deleteFolderRecursive({ path: testDir })
 }
 
 // test
 const test = async () => {
   // create
-  await fs.mkdirSync(testDir)
   await generate()
-  await execSync(`node ./bin/rm-node-modules ${testDir}`)
+  await execSync(`node ./bin/rm-nm ${testDir}`)
   let result = await execSync(`find ${testDir} -name node_modules`).toString()
   if (result.length !== 0) {
     throw new Error(`Expected no result from 'find ${testDir} -name node_modules*' got\n${result}`)
