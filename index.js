@@ -34,9 +34,22 @@ class RmNodeModules {
       console.log(`No directories found with current options`)
       return
     }
-    let dirs = await utils.deleteFoldersRecursive(dirsToRemove)
-    let totalSizeInMb = (dirs.reduce((a, b) => +a + b.size, 0) / 1000)
-    console.log(`Deleted ${dirs.length} node_modules folders, freed ${totalSizeInMb}KB of memory`)
+    let removeDirFileSizes = []
+    for (var i = 0; i < dirsToRemove.length; i++) {
+      let removedFileSizes = await utils.deleteFolderRecursive(dirsToRemove[i])
+      removeDirFileSizes.push(removedFileSizes)
+    }
+    // flatten
+    let removedFileSizes = removeDirFileSizes.reduce((dir, val) => dir.concat(val), []);
+    let totalSizeInBits = removedFileSizes.reduce((a, b) => a + b )
+    let size = `${totalSizeInBits} bites`
+    if (totalSizeInBits > 1000) {
+      size = `${Math.round((totalSizeInBits / 1000) * 100) / 100} KB`
+    }
+    if (totalSizeInBits > 1000000) {
+      size = `${Math.round((totalSizeInBits / 1000000) * 100) / 100} MB`
+    }
+    console.log(`Deleted ${removeDirFileSizes.length} node_modules folders, freed ${size} of memory`)
   }
 
   async applyArgs (dirs) {
