@@ -6,7 +6,10 @@
   "scripts": {
     "test": "node test.js"
   },
-  "bin": "./bin/rm-node-modules.js",
+  "engines" : {
+    "node" : ">=8.11.2"
+  },
+  "bin": "./bin/rm-nm.js",
   "author": {
     "name": "Matteo Maronati",
     "email": "me@mattinthe.net",
@@ -16,8 +19,5 @@
     "type": "git",
     "url": "https://github.com/MattAndDev/rm-nm.git"
   },
-  "license": "WTFPL",
-  "dependencies": {
-    "lodash": "^4.17.10"
-  }
+  "license": "WTFPL"
 }
